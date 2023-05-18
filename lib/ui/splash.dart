@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:todo/app_layout/register.dart';
+import 'package:todo/ui/register.dart';
 
 class SplashScreen extends StatelessWidget {
 static const String routeName ='splash';
