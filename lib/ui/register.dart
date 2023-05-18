@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo/components/custom_text_field.dart';
 import 'package:todo/style/constants.dart';
+import 'package:todo/ui/login.dart';
 
 class RegisterScreen extends StatelessWidget {
   static const String routeName = 'register';
@@ -103,6 +104,11 @@ class RegisterScreen extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         register();
+                           if(nameController.text.isNotEmpty&&emailController.text.isNotEmpty
+                               &&passwordController.text.isNotEmpty
+                               &&confirmPassController.text.isNotEmpty){
+                             Navigator.pushNamed(context, LoginScreen.routeName);
+                           }
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -123,6 +129,7 @@ class RegisterScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+
                 ],
               ),
             ),
