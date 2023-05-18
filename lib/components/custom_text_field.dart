@@ -26,7 +26,6 @@ class CustomTextField extends StatelessWidget {
         decoration: InputDecoration(
           labelText: labelText,
           suffixIcon: icon,
-
         ),
     );
   }

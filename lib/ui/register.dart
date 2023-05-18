@@ -57,6 +57,9 @@ class RegisterScreen extends StatelessWidget {
                       if (text == null || text.trim().isEmpty) {
                         return "please enter correct Email ";
                       }
+                      if(!Validation.isValid(text)){
+                        return "Please Enter Valid Email";
+                      }
                       return null;
                     },
                   ),

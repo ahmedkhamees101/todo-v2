@@ -7,3 +7,10 @@ class MyColor{
   static const Color mainBackGround = Color(0xFFDFECDB);
   static const Color buttonBackGround = Color(0xFFBDBDBD);
 }
+
+class Validation{
+ static  bool isValid(String email){
+    var  regex=RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
+    return regex.hasMatch(email);
+  }
+}
