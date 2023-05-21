@@ -121,7 +121,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                            if(nameController.text.isNotEmpty&&emailController.text.isNotEmpty
                                &&passwordController.text.isNotEmpty
                                &&confirmPassController.text.isNotEmpty){
-                             Navigator.pushNamed(context, LoginScreen.routeName);
                            }
                       },
                       child: Row(
@@ -156,7 +155,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   register() async {
 
     if (formKey.currentState?.validate() == false) {
-      return;
     }
     DialogUtils.loadingDialog(context, "loading...");
     try {
@@ -165,6 +163,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       DialogUtils.hideDialog(context);
       DialogUtils.showMessage(context, "successful registration",posActionName: "ok",posActions: (){
         Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+
       });
     } on FirebaseAuthException catch (e) {
       DialogUtils.hideDialog(context);
@@ -179,9 +178,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     } catch (e) {
       DialogUtils.hideDialog(context);
       String errorMessage ='SomeThing Went Wrong';
-      DialogUtils.showMessage(context, errorMessage,navActionName: "Try Again",navAction: (){
-        register();
-      });
+      DialogUtils.showMessage(context, errorMessage,navActionName: "Try Again",);
     }
   }
 }

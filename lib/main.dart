@@ -11,7 +11,7 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
       );
-  runApp(MyApp());;
+  runApp(MyApp());
 }
 class MyApp extends StatelessWidget {
   @override
