@@ -1,14 +1,29 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todo/components/custom_text_field.dart';
 import 'package:todo/style/constants.dart';
+import 'package:todo/ui/login.dart';
+import 'package:todo/ui/uitls/dialg-uitls.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   static const String routeName = 'register';
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
   var formKey = GlobalKey<FormState>();
+
   var nameController = TextEditingController();
+
   var emailController = TextEditingController();
+
   var passwordController = TextEditingController();
+
   var confirmPassController = TextEditingController();
+
+  FirebaseAuth authServes = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +72,7 @@ class RegisterScreen extends StatelessWidget {
                       if (text == null || text.trim().isEmpty) {
                         return "please enter correct Email ";
                       }
-                      if(!Validation.isValid(text)){
+                      if (!Validation.isValid(text)) {
                         return "Please Enter Valid Email";
                       }
                       return null;
@@ -91,7 +106,7 @@ class RegisterScreen extends StatelessWidget {
                         return "please Confirm password ";
                       } else if (text.length < 6) {
                         return 'Please enter 6 chars';
-                      }else if (passwordController.text!=text){
+                      } else if (passwordController.text != text) {
                         return "Confirm Password is not match";
                       }
                       return null;
@@ -132,7 +147,35 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  register() {
-    formKey.currentState?.validate();
+  register() async {
+
+    if (formKey.currentState?.validate() == false) {
+      return;
+    }
+    DialogUtils.loadingDialog(context, "loading...");
+    try {
+       await authServes.createUserWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+      DialogUtils.hideDialog(context);
+      DialogUtils.showMessage(context, "successful registration",posActionName: "ok",posActions: (){
+        Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+      });
+    } on FirebaseAuthException catch (e) {
+      DialogUtils.hideDialog(context);
+      String errorMessage ='SomeThing Went Wrong';
+      if (e.code == 'weak-password') {
+        errorMessage = 'The password provided is too weak.';
+      } else if (e.code == 'email-already-in-use') {
+        errorMessage = 'The account already exists for that email';
+      }
+      DialogUtils.showMessage(context, errorMessage,navActionName: "Try Again",);
+
+    } catch (e) {
+      DialogUtils.hideDialog(context);
+      String errorMessage ='SomeThing Went Wrong';
+      DialogUtils.showMessage(context, errorMessage,navActionName: "Try Again",navAction: (){
+        register();
+      });
+    }
   }
 }
