@@ -21,7 +21,9 @@ class MyTheme {
         fontWeight: FontWeight.w600,color: MyColor.buttonBackGround,
         fontSize: 14,
       ),
-      // bodySmall: ,
+       bodySmall: TextStyle(
+         color: Color(0xFFF9F9F9),fontSize: 14
+       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(

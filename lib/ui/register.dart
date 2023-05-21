@@ -118,6 +118,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         register();
+                           if(nameController.text.isNotEmpty&&emailController.text.isNotEmpty
+                               &&passwordController.text.isNotEmpty
+                               &&confirmPassController.text.isNotEmpty){
+                             Navigator.pushNamed(context, LoginScreen.routeName);
+                           }
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -138,6 +143,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                   ),
+
                 ],
               ),
             ),
