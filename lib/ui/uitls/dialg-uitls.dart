@@ -22,15 +22,15 @@ class DialogUtils {
 
   static void showMessage(BuildContext context, String message,
       {String? posActionName,
-      String? navActionName,
-      VoidCallback? navAction,
-      VoidCallback? posActions}) {
+        String? navActionName,
+        VoidCallback? navAction,
+        VoidCallback? posActions}) {
     List<Widget> actions = [];
     if (posActionName != null) {
       actions.add(TextButton(
           onPressed: () {
             hideDialog(context);
-             posActions?.call();
+            posActions?.call();
           },
           child: Text(posActionName)));
     }
@@ -38,6 +38,7 @@ class DialogUtils {
       actions.add(TextButton(
           onPressed: () {
             hideDialog(context);
+            navAction?.call();
           },
           child: Text(navActionName)));
     }

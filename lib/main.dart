@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo/style/app_theme.dart';
+import 'package:todo/ui/home_screen.dart';
 import 'package:todo/ui/login.dart';
 import 'package:todo/ui/register.dart';
 import 'package:todo/ui/splash.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         SplashScreen.routeName: (_) => SplashScreen(),
         RegisterScreen.routeName: (_) => RegisterScreen(),
         LoginScreen.routeName: (_) => LoginScreen(),
+        HomeScreen.routeName: (_) => HomeScreen(),
       },
       theme: MyTheme.lightTheme,
     );
