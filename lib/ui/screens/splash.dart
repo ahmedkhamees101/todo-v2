@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:todo/ui/register.dart';
+import 'package:todo/ui/screens/register.dart';
 
 import 'login.dart';
 

@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:todo/components/custom_text_field.dart';
-import 'package:todo/style/constants.dart';
-import 'package:todo/ui/login.dart';
-import 'package:todo/ui/uitls/dialg-uitls.dart';
+import 'package:todo/ui/screens/login.dart';
+import '../../shared/components/constants.dart';
+import '../../shared/components/custom_text_field.dart';
+import '../../shared/uitls/dialg-uitls.dart';
+import '../../style/app_colors.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const String routeName = 'register';
@@ -29,7 +30,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
+
         color: MyColor.mainBackGround,
+
         image: DecorationImage(
             image: AssetImage('assets/images/main_bg.png'), fit: BoxFit.cover),
       ),

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:todo/style/constants.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import 'package:todo/style/app_colors.dart';
 class MyTheme {
   static ThemeData lightTheme = ThemeData(
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+    ),
     scaffoldBackgroundColor: Colors.transparent,
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.transparent,
@@ -11,12 +16,11 @@ class MyTheme {
         color: Colors.white
       )
     ),
-    textTheme: const TextTheme(
-       bodyLarge: TextStyle(
+    textTheme:  TextTheme(
+       bodyLarge: GoogleFonts.poppins(
          color: Colors.white,fontSize: 20,
          fontWeight: FontWeight.bold,
-
-       ) ,
+       ),
       bodyMedium: TextStyle(
         fontWeight: FontWeight.w600,color: MyColor.buttonBackGround,
         fontSize: 14,

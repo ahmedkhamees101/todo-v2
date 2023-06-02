@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:todo/ui/register.dart';
-import 'package:todo/ui/uitls/dialg-uitls.dart';
-import '../components/custom_text_field.dart';
-import '../style/constants.dart';
-import 'home_screen.dart';
+import 'package:todo/ui/screens/register.dart';
+import '../../shared/components/constants.dart';
+import '../../style/app_colors.dart';
+import '../../shared/components/custom_text_field.dart';
+import '../../shared/uitls/dialg-uitls.dart';
+import '../home_layout/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = "login";
