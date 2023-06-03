@@ -9,8 +9,11 @@ import '../ui/screens/tasks.dart';
 class HomeProviders extends ChangeNotifier{
   int index= 0;
   List<Widget> tabs=[Tasks(),Settings()];
-  @override
-  notifyListeners();
+  changeTabs( ){
+    tabs[index];
+    notifyListeners();
+
+  }
 
 
 

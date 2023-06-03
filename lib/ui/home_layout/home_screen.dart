@@ -3,14 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/providers/home_providers.dart';
 import '../../style/app_colors.dart';
+import '../widgets/bottom_sheet.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static const routeName = "home";
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => HomeProviders(),
+      create: (context) => HomeProviders()..changeTabs(),
       builder: (context, child) {
         var prov= Provider.of<HomeProviders>(context);
         return Container(
@@ -18,7 +24,6 @@ class HomeScreen extends StatelessWidget {
             color: MyColor.mainBackGround,
           ),
           child: Scaffold(
-
             extendBody: true,
             appBar: AppBar(
               backgroundColor: MyColor.blueColor,
@@ -30,11 +35,15 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
+
             body: prov.tabs[prov.index],
+
             floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
             floatingActionButton: FloatingActionButton(
               shape: StadiumBorder(side: BorderSide(color: Colors.white, width: 3)),
-              onPressed: () {},
+              onPressed: () {
+                showBottomSheet();
+              },
               child: Icon(
                 Icons.add,
                 size: 30,
@@ -60,5 +69,20 @@ class HomeScreen extends StatelessWidget {
       },
 
     );
+  }
+
+  showBottomSheet(){
+    showModalBottomSheet(
+    isScrollControlled: true,
+    context: context, builder:(context){
+      return Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom
+        ),
+          child: ShowModalBottomSheet());
+    },
+      shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(topRight:Radius.circular(30),topLeft:Radius.circular(30))
+    ),);
   }
 }

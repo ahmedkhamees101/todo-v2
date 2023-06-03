@@ -10,6 +10,7 @@ class MyColor{
   static const Color greenColor = Color(0xFF61E757);
   static const Color redColor = Color(0xFFEC4B4B);
   static const Color blackColor = Color(0xFF707070);
+  static const Color sheetTitle= Color(0xFF383838);
 
 }
 
