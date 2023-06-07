@@ -7,10 +7,12 @@ import '../ui/screens/tasks.dart';
 
 
 class HomeProviders extends ChangeNotifier{
-  int index= 0;
-  List<Widget> tabs=[Tasks(),Settings()];
-  changeTabs( ){
-    tabs[index];
+  int currentIndex= 0;
+  int get currentIndexTabs{
+    return currentIndex;
+  }
+  changeTabs( int index ){
+      currentIndex =index;
     notifyListeners();
 
   }

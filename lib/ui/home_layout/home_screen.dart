@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/providers/home_providers.dart';
 import '../../style/app_colors.dart';
+import '../screens/settings.dart';
+import '../screens/tasks.dart';
 import '../widgets/bottom_sheet.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,10 +17,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+
     return ChangeNotifierProvider(
-      create: (context) => HomeProviders()..changeTabs(),
+      create: (context) => HomeProviders(),
       builder: (context, child) {
+        List<Widget> tabs=[Tasks(),Settings()];
         var prov= Provider.of<HomeProviders>(context);
+        int index= prov.currentIndexTabs;
         return Container(
           decoration: BoxDecoration(
             color: MyColor.mainBackGround,
@@ -36,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
 
-            body: prov.tabs[prov.index],
+            body: tabs[index],
 
             floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
             floatingActionButton: FloatingActionButton(
@@ -53,9 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
               notchMargin: 6,
               shape: CircularNotchedRectangle(),
               child: BottomNavigationBar(
-                currentIndex: prov.index,
+                currentIndex: index,
                 onTap: (value){
-                  prov.index=value;
+                  prov.changeTabs(value);
                 },
                 iconSize: 30,
                 items: [

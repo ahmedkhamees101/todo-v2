@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo/firebase_functions.dart';
+import 'package:todo/models/tasks_model.dart';
 import 'package:todo/style/app_colors.dart';
 
 class ShowModalBottomSheet extends StatefulWidget {
@@ -10,10 +12,11 @@ class ShowModalBottomSheet extends StatefulWidget {
 
 class _ShowModalBottomSheetState extends State<ShowModalBottomSheet> {
 final formKey =  GlobalKey<FormState>();
-
+DateTime selectDate=DateTime.now();
+TextEditingController titleController = TextEditingController();
+TextEditingController descriptionController = TextEditingController();
+@override
   Widget build(BuildContext context) {
-      TextEditingController titleController = TextEditingController();
-      TextEditingController descriptionController = TextEditingController();
     return Padding(
       padding: EdgeInsets.all(20.0),
       child: Form(
@@ -96,7 +99,7 @@ final formKey =  GlobalKey<FormState>();
                    pickerDate(context);
               },
               child: Text(
-                "12/12/12",
+                selectDate.toString().substring(0,10),
                 style: Theme.of(context)
                     .textTheme
                     .bodyMedium!
@@ -109,9 +112,15 @@ final formKey =  GlobalKey<FormState>();
             ElevatedButton(onPressed: (){
               if(
               formKey.currentState!.validate()){
-                print("route");
-
               }
+              var task = TaskModel(
+                  title: titleController.text,
+                  description: descriptionController.text,
+                  status: false,
+                  time: selectDate.millisecond);
+              FirebaseFunction.addTaskToFireStore(task).then((value) => {
+                Navigator.pop(context),
+              });
             }, child: Text("Add Task",
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 fontSize: 16,
@@ -132,10 +141,17 @@ final formKey =  GlobalKey<FormState>();
     );
   }
 
-   pickerDate(BuildContext context ){
-    return showDatePicker(context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime.now(),
-        lastDate: DateTime.now().add(Duration(days: 365*5)));
-  }
+   Future pickerDate(BuildContext context )async {
+     DateTime? chosenDate = await showDatePicker(context: context,
+         initialDate: DateTime.now(),
+         firstDate: DateTime.now(),
+         lastDate: DateTime.now().add(Duration(days: 365 * 5)));
+     if (chosenDate != null) {
+       selectDate = chosenDate;
+       setState(() {
+
+       });
+     }
+   }
 }
+
