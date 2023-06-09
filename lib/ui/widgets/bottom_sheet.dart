@@ -12,7 +12,7 @@ class ShowModalBottomSheet extends StatefulWidget {
 
 class _ShowModalBottomSheetState extends State<ShowModalBottomSheet> {
 final formKey =  GlobalKey<FormState>();
-DateTime selectDate=DateTime.now();
+DateTime selectDate=DateUtils.dateOnly(DateTime.now());
 TextEditingController titleController = TextEditingController();
 TextEditingController descriptionController = TextEditingController();
 @override
@@ -112,16 +112,20 @@ TextEditingController descriptionController = TextEditingController();
             ElevatedButton(onPressed: (){
               if(
               formKey.currentState!.validate()){
+
               }
-              var task = TaskModel(
+              TaskModel task = TaskModel(
                   title: titleController.text,
                   description: descriptionController.text,
                   status: false,
-                  time: selectDate.millisecond);
+                  time: selectDate.microsecondsSinceEpoch);
               FirebaseFunction.addTaskToFireStore(task).then((value) => {
-                Navigator.pop(context),
+                if(titleController.text.isNotEmpty&&descriptionController.text.isNotEmpty){
+                  Navigator.pop(context),
+                }
               });
-            }, child: Text("Add Task",
+            },
+              child: Text("Add Task",
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 fontSize: 16,
                 fontWeight: FontWeight.w400
@@ -147,7 +151,7 @@ TextEditingController descriptionController = TextEditingController();
          firstDate: DateTime.now(),
          lastDate: DateTime.now().add(Duration(days: 365 * 5)));
      if (chosenDate != null) {
-       selectDate = chosenDate;
+       selectDate =DateUtils.dateOnly( chosenDate);
        setState(() {
 
        });
