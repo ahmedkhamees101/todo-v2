@@ -42,6 +42,7 @@ dependencies:
   provider: ^6.0.5
   date_picker_timeline: ^1.2.3
   cloud_firestore: ^4.8.0
+  flutter_slidable: ^3.0.0
 
 
 dev_dependencies:
@@ -69,7 +70,6 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
-    - assets/images/stock.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
