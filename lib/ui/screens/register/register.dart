@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:todo/ui/screens/login.dart';
-import '../../shared/components/constants.dart';
-import '../../shared/components/custom_text_field.dart';
-import '../../shared/uitls/dialg-uitls.dart';
-import '../../style/app_colors.dart';
+import 'package:todo/ui/screens/login/login.dart';
+import '../../../shared/components/constants.dart';
+import '../../../shared/components/custom_text_field.dart';
+import '../../../shared/uitls/dialg-uitls.dart';
+import '../../../style/app_colors.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const String routeName = 'register';

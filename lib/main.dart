@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:todo/style/app_theme.dart';
 import 'package:todo/ui/home_layout/home_screen.dart';
-import 'package:todo/ui/screens/login.dart';
-import 'package:todo/ui/screens/register.dart';
+import 'package:todo/ui/screens/login/login.dart';
+import 'package:todo/ui/screens/register/register.dart';
 import 'package:todo/ui/screens/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: HomeScreen.routeName,
+      initialRoute: SplashScreen.routeName,
       routes: {
         SplashScreen.routeName: (_) => SplashScreen(),
         RegisterScreen.routeName: (_) => RegisterScreen(),
