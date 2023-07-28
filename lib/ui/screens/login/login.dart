@@ -167,8 +167,9 @@ class _LoginScreenState extends BaseView<LoginViewModal,LoginScreen> implements 
    Navigator.pushReplacementNamed(context, HomeScreen.routeName);
   }
 
+
   @override
-  LoginViewModal initVewModal() {
+  LoginViewModal initViewModal() {
     return LoginViewModal();
   }
 

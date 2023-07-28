@@ -14,12 +14,12 @@ class BaseViewModal<Con extends BaseConnector> extends ChangeNotifier  {
 }
 abstract class BaseView<VM extends BaseViewModal,T extends StatefulWidget> extends State<T> implements BaseConnector{
   late VM viewModal;
-  VM initVewModal();
+  VM initViewModal();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    viewModal= initVewModal();
+    viewModal= initViewModal();
   }
   @override
   hideDialog() {
@@ -48,6 +48,8 @@ abstract class BaseView<VM extends BaseViewModal,T extends StatefulWidget> exten
 
   @override
   showMessageError(String message) {
-    DialogUtils.showMessage(context, message,);
+    DialogUtils.showMessage(context, message,navActionName: "Try Again",navAction: () {
+      Navigator.pop(context);
+    },);
   }
 }
