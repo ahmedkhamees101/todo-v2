@@ -62,6 +62,7 @@ TextEditingController descriptionController = TextEditingController();
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: TextFormField(
+                  maxLines: 4,
                   controller: descriptionController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {

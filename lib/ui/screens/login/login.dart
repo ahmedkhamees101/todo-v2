@@ -1,12 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:todo/ui/screens/register.dart';
-import '../../shared/components/constants.dart';
-import '../../style/app_colors.dart';
-import '../../shared/components/custom_text_field.dart';
-import '../../shared/uitls/dialg-uitls.dart';
-import '../home_layout/home_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:todo/shared/base.dart';
+import 'package:todo/ui/screens/login/connector.dart';
+import 'package:todo/ui/screens/login/login_viewmodal.dart';
+import 'package:todo/ui/screens/register/register.dart';
+import '../../../shared/components/constants.dart';
+import '../../../style/app_colors.dart';
+import '../../../shared/components/custom_text_field.dart';
+import '../../../shared/uitls/dialg-uitls.dart';
+import '../../home_layout/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = "login";
@@ -15,18 +19,24 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends BaseView<LoginViewModal,LoginScreen> implements LoginConnector{
   var formKey = GlobalKey<FormState>();
 
   var emailController = TextEditingController();
 
   var passwordController = TextEditingController();
-
-  FirebaseAuth authServes = FirebaseAuth.instance;
+   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    viewModal.connector =this;
+  }
+  // FirebaseAuth authServes = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return ChangeNotifierProvider(create:(context) => viewModal,
+    builder: (context, child) => Container(
         decoration: const BoxDecoration(
           color: MyColor.mainBackGround,
           image: DecorationImage(
@@ -97,7 +107,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.blue.shade500),
                         onPressed: () {
-                          login();
+                          if (formKey.currentState?.validate() == false) {
+                            return;
+                          }
+                          viewModal.login(emailController.text, passwordController.text);
+                          // login();
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -144,43 +158,57 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-        ));
+        )),
+    );
   }
 
-  void login() async {
-    if (formKey.currentState?.validate() == false) {
-      return;
-    }
-    DialogUtils.loadingDialog(context, "loading...");
-    try {
-      final credential = await authServes.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
-      DialogUtils.hideDialog(context);
-      Navigator.pushReplacementNamed(context, HomeScreen.routeName);
-    } on FirebaseAuthException catch (e) {
-      String errorMessage;
-      if (e.code == 'user-not-found') {
-        errorMessage = ('Wrong email or password provided for that user.');
-        DialogUtils.showMessage(context, errorMessage,
-            navActionName: "try Again", navAction: () {
-          DialogUtils.hideDialog(context);
-        });
-      } else if (e.code == 'wrong-password') {
-        errorMessage = ('Wrong email or password provided for that user.');
-        DialogUtils.showMessage(context, errorMessage,
-            navActionName: "try Again", navAction: () {
-          DialogUtils.hideDialog(context);
-        });
-      }
-    } catch (e) {
-      DialogUtils.hideDialog(context);
-      String errorMessage = 'SomeThing Went Wrong';
-      DialogUtils.showMessage(context, errorMessage, navActionName: "Try Again",
-          navAction: () {
-        login();
-      });
-    }
+  @override
+  NavigateToHome() {
+   Navigator.pushReplacementNamed(context, HomeScreen.routeName);
   }
+
+
+  @override
+  LoginViewModal initViewModal() {
+    return LoginViewModal();
+  }
+
+
+  //
+  // void login() async {
+  //   if (formKey.currentState?.validate() == false) {
+  //     return;
+  //   }
+  //   DialogUtils.loadingDialog(context, "loading...");
+  //   try {
+  //     final credential = await authServes.signInWithEmailAndPassword(
+  //       email: emailController.text,
+  //       password: passwordController.text,
+  //     );
+  //     DialogUtils.hideDialog(context);
+  //     Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+  //   } on FirebaseAuthException catch (e) {
+  //     String errorMessage;
+  //     if (e.code == 'user-not-found') {
+  //       errorMessage = ('Wrong email or password provided for that user.');
+  //       DialogUtils.showMessage(context, errorMessage,
+  //           navActionName: "try Again", navAction: () {
+  //         DialogUtils.hideDialog(context);
+  //       });
+  //     } else if (e.code == 'wrong-password') {
+  //       errorMessage = ('Wrong email or password provided for that user.');
+  //       DialogUtils.showMessage(context, errorMessage,
+  //           navActionName: "try Again", navAction: () {
+  //         DialogUtils.hideDialog(context);
+  //       });
+  //     }
+  //   } catch (e) {
+  //     DialogUtils.hideDialog(context);
+  //     String errorMessage = 'SomeThing Went Wrong';
+  //     DialogUtils.showMessage(context, errorMessage, navActionName: "Try Again",
+  //         navAction: () {
+  //       login();
+  //     });
+  //   }
+  // }
 }
