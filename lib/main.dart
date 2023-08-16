@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo/style/app_theme.dart';
 import 'package:todo/ui/home_layout/home_screen.dart';
+import 'package:todo/ui/screens/edit_screen/edit_screen.dart';
 import 'package:todo/ui/screens/login/login.dart';
 import 'package:todo/ui/screens/register/register.dart';
 import 'package:todo/ui/screens/splash.dart';
@@ -19,12 +20,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: SplashScreen.routeName,
+      initialRoute: HomeScreen.routeName,
       routes: {
         SplashScreen.routeName: (_) => SplashScreen(),
         RegisterScreen.routeName: (_) => RegisterScreen(),
         LoginScreen.routeName: (_) => LoginScreen(),
         HomeScreen.routeName: (_) => HomeScreen(),
+        EditScreen.routeName:(_)=>EditScreen(),
       },
       theme: MyTheme.lightTheme,
     );
