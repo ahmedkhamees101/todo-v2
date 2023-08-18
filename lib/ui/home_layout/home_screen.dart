@@ -34,8 +34,11 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: MyColor.blueColor,
               title: Padding(
                 padding: EdgeInsets.all(10),
-                child: Text(
+                child:index==0? Text(
                   "ToDo List",
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ):Text(
+                  "Settings",
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ),
